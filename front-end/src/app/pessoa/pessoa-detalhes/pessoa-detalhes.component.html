@@ -1,0 +1,72 @@
+<div class="title-group">
+    <h1 class="mat-h1">Pessoa</h1>
+    <mat-divider fxFlex="1 0"></mat-divider>
+</div>
+
+<div class="inner-wrapper">
+    <form [formGroup]="pessoaForm" (ngSubmit)="submitPessoaForm()" #resetPessoaForm="ngForm">
+        <mat-card>
+            <div class="controlers-wrapper">
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Nome" formControlName="nome">
+                    <mat-error *ngIf="handleError('nome', 'required')">
+                        O <strong>nome</strong> é obrigatório.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Email" formControlName="email">
+                    <mat-error *ngIf="handleError('email', 'valid')">
+                        O <strong>e-mail</strong> deve ser válido.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="CPF" formControlName="cpf">
+                    <mat-error *ngIf="handleError('cpf', 'required')">
+                        O <strong>CPF</strong> é obrigatório.
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </mat-card>
+
+        <mat-card>
+            <div class="controlers-wrapper">
+                <mat-form-field>
+                    <input matInput readonly [matDatepicker]="picker" placeholder="Data de Nascimento"
+                        formControlName="dataNascimento">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="handleError('dataNascimento', 'required')">
+                        A <strong>data de nascimento</strong> é obrigatória.
+                    </mat-error>
+                </mat-form-field>
+
+                <div class="misc-bottom-padding">
+                    <mat-label>Sexo:</mat-label>
+                    <mat-radio-group aria-label="Select an option" formControlName="sexo">
+                        <mat-radio-button value="Feminino">Feminino</mat-radio-button>
+                        <mat-radio-button value="Masculino">Masculino</mat-radio-button>
+                        <mat-radio-button value="Outros">Outros</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Naturalidade" formControlName="naturalidade">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Nacionalidade" formControlName="nacionalidade">
+                </mat-form-field>
+            </div>
+        </mat-card>
+
+        <mat-card>
+            <div class="full-wrapper button-wrapper">
+                <div class="button-wrapper">
+                    <button mat-flat-button color="warn" type="submit">Salvar</button>
+                </div>
+            </div>
+        </mat-card>
+    </form>
+</div>
