@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { SourceService } from 'src/app/common/service/source.service';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,9 @@ export class AppComponent implements OnInit {
   opened = true;
 
   @ViewChild('sidenav') sidenav: MatSidenav;
+
+  constructor(private sourceService: SourceService) {
+  }
 
   ngOnInit() {
     this.opened = window.innerWidth >= 768;
@@ -27,5 +31,9 @@ export class AppComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  public abrirGithub(): void {
+    this.sourceService.find().subscribe(({ url }) => window.open(url, "_blank"));
   }
 }

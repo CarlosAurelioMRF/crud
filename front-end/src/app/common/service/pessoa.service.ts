@@ -10,7 +10,7 @@ import { Pessoa } from '../interface/pessoa.interface';
 })
 export class PessoaService {
 
-  private baseUrl = `${environment.apiUrl}/pessoas`;
+  private baseUrl = `${environment.base}/api/pessoas`;
 
   constructor(private http: HttpClient) { }
 
