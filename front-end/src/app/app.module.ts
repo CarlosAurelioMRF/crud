@@ -7,9 +7,9 @@ import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { PessoaDetalhesComponent } from './components/pessoa/pessoa-detalhes/pessoa-detalhes.component';
+import { PessoaComponent } from './components/pessoa/pessoa.component';
 import { AngularMaterialModule } from './material.module';
-import { PessoaDetalhesComponent } from './pessoa/pessoa-detalhes/pessoa-detalhes.component';
-import { PessoaComponent } from './pessoa/pessoa.component';
 
 @NgModule({
   declarations: [

@@ -12,12 +12,18 @@
                     <mat-error *ngIf="handleError('nome', 'required')">
                         O <strong>nome</strong> é obrigatório.
                     </mat-error>
+                    <mat-error *ngIf="handleError('nome', 'serverError')">
+                        {{ pessoaForm.get('nome').errors?.serverError }}
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width">
                     <input matInput placeholder="Email" formControlName="email">
-                    <mat-error *ngIf="handleError('email', 'valid')">
+                    <mat-error *ngIf="handleError('email', 'email')">
                         O <strong>e-mail</strong> deve ser válido.
+                    </mat-error>
+                    <mat-error *ngIf="handleError('email', 'serverError')">
+                        {{ pessoaForm.get('email').errors?.serverError }}
                     </mat-error>
                 </mat-form-field>
 
@@ -25,6 +31,12 @@
                     <input matInput placeholder="CPF" formControlName="cpf">
                     <mat-error *ngIf="handleError('cpf', 'required')">
                         O <strong>CPF</strong> é obrigatório.
+                    </mat-error>
+                    <mat-error *ngIf="handleError('cpf', 'cpfInvalido')">
+                        O <strong>CPF</strong> é inválido.
+                    </mat-error>
+                    <mat-error *ngIf="handleError('cpf', 'serverError')">
+                        {{ pessoaForm.get('cpf').errors?.serverError }}
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -40,6 +52,9 @@
                     <mat-error *ngIf="handleError('dataNascimento', 'required')">
                         A <strong>data de nascimento</strong> é obrigatória.
                     </mat-error>
+                    <mat-error *ngIf="handleError('dataNascimento', 'serverError')">
+                        {{ pessoaForm.get('dataNascimento').errors?.serverError }}
+                    </mat-error>
                 </mat-form-field>
 
                 <div class="misc-bottom-padding">
@@ -47,16 +62,24 @@
                     <mat-radio-group aria-label="Select an option" formControlName="sexo">
                         <mat-radio-button value="Feminino">Feminino</mat-radio-button>
                         <mat-radio-button value="Masculino">Masculino</mat-radio-button>
-                        <mat-radio-button value="Outros">Outros</mat-radio-button>
                     </mat-radio-group>
+                    <mat-error *ngIf="handleError('sexo', 'serverError')">
+                        {{ pessoaForm.get('sexo').errors?.serverError }}
+                    </mat-error>
                 </div>
 
                 <mat-form-field class="example-full-width">
                     <input matInput placeholder="Naturalidade" formControlName="naturalidade">
+                    <mat-error *ngIf="handleError('naturalidade', 'serverError')">
+                        {{ pessoaForm.get('naturalidade').errors?.serverError }}
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width">
                     <input matInput placeholder="Nacionalidade" formControlName="nacionalidade">
+                    <mat-error *ngIf="handleError('nacionalidade', 'serverError')">
+                        {{ pessoaForm.get('nacionalidade').errors?.serverError }}
+                    </mat-error>
                 </mat-form-field>
             </div>
         </mat-card>
@@ -65,6 +88,8 @@
             <div class="full-wrapper button-wrapper">
                 <div class="button-wrapper">
                     <button mat-flat-button color="warn" type="submit">Salvar</button>
+
+                    <button mat-flat-button color="basic" type="reset" [routerLink]="'/pessoas'">Cancelar</button>
                 </div>
             </div>
         </mat-card>

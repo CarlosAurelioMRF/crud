@@ -2,9 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import * as moment from 'moment';
-
-import { Pessoa } from '../interface/pessoa.interface';
-import { PessoaService } from '../service/pessoa.service';
+import { Pessoa } from 'src/app/common/interface/pessoa.interface';
+import { PessoaService } from 'src/app/common/service/pessoa.service';
 
 @Component({
   selector: 'app-pessoa',
@@ -43,5 +42,4 @@ export class PessoaComponent implements OnInit {
       });
     }
   }
-
 }

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { PessoaDetalhesComponent } from './pessoa/pessoa-detalhes/pessoa-detalhes.component';
-import { PessoaComponent } from './pessoa/pessoa.component';
+import { PessoaDetalhesComponent } from './components/pessoa/pessoa-detalhes/pessoa-detalhes.component';
+import { PessoaComponent } from './components/pessoa/pessoa.component';
 
 const routes: Routes = [
   {
@@ -28,7 +28,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -24,26 +24,26 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         Map<String, Object> body = new LinkedHashMap<>();
 
         //Get all errors
-        List<String> errors = ex.getBindingResult()
+        List<ValidationError> errors = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
-                .map(x -> x.getDefaultMessage())
+                .map(x -> new ValidationError(x.getField(), x.getDefaultMessage()))
                 .collect(Collectors.toList());
 
         body.put("errors", errors);
 
-        return new ResponseEntity<>(body, headers, status);
+        return new ResponseEntity<>(body, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @ExceptionHandler(CpfException.class)
     protected ResponseEntity<Object> handleCpfDuplicated(Exception ex, WebRequest request) {
         Map<String, Object> body = new LinkedHashMap<>();
 
-        List<String> errors = Arrays.asList(ex.getMessage());
+        List<ValidationError> errors = Arrays.asList(new ValidationError("cpf", ex.getMessage()));
 
         body.put("errors", errors);
 
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(body, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
 }

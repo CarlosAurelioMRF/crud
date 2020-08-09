@@ -1,9 +1,11 @@
 import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Router, Params, ActivatedRoute } from '@angular/router';
-import { PessoaService } from 'src/app/service/pessoa.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as moment from 'moment';
-import { Pessoa } from 'src/app/interface/pessoa.interface';
+import { Pessoa } from 'src/app/common/interface/pessoa.interface';
+import { PessoaService } from 'src/app/common/service/pessoa.service';
+import { Validacoes } from 'src/app/common/validation/valicacoes';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-pessoa-detalhes',
@@ -46,7 +48,19 @@ export class PessoaDetalhesComponent implements OnInit {
         dataNascimento: moment(this.pessoaForm.value.dataNascimento).locale('pt-br').toDate()
       }
 
-      this.pessoaService.save(pessoa).subscribe(() => this.ngZone.run(() => this.router.navigateByUrl('/pessoas')));
+      this.pessoaService.save(pessoa).subscribe(
+        () => this.ngZone.run(() => this.router.navigateByUrl('/pessoas')),
+        ({ error }) => {
+          if (error && error.errors) {
+            const validationErrors = error.errors;
+
+            validationErrors.forEach(erro => {
+              this.pessoaForm.controls[erro.propriedade].setErrors({
+                serverError: erro.mensagem
+              });
+            });
+          }
+        });
     }
   }
 
@@ -54,7 +68,7 @@ export class PessoaDetalhesComponent implements OnInit {
     this.pessoaForm = this.fb.group({
       id: [pessoa ? pessoa.id : ''],
       nome: [pessoa ? pessoa.nome : '', [Validators.required]],
-      cpf: [pessoa ? pessoa.cpf : '', [Validators.required]],
+      cpf: [pessoa ? pessoa.cpf : '', [Validators.required, Validacoes.ValidaCpf]],
       dataNascimento: [pessoa ? pessoa.dataNascimento : '', [Validators.required]],
       email: [pessoa ? pessoa.email : '', [Validators.email]],
       sexo: [pessoa ? pessoa.sexo : ''],
