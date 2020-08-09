@@ -50,6 +50,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>de.flapdoodle.embed</groupId>
+			<artifactId>de.flapdoodle.embed.mongo</artifactId>
+			<!-- <scope>test</scope> Comentado roda o banco em memoria. -->
+		</dependency>
 	</dependencies>
 
 	<build>
