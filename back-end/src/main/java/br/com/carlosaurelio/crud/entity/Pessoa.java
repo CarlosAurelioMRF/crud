@@ -3,15 +3,8 @@ package br.com.carlosaurelio.crud.entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Document
 public class Pessoa
@@ -19,29 +12,50 @@ public class Pessoa
     @Id
     private String id;
 
-    @NotBlank(message = "Nome é obrigatório")
     private String nome;
 
     private String sexo;
 
-    @Email(message = "Email deve ser valido")
     private String email;
 
-    @NotNull(message = "Data de Nascimento é obrigatória")
-    @DateTimeFormat(iso = ISO.DATE)
     private LocalDate dataNascimento;
 
     private String naturalidade;
 
     private String nacionalidade;
 
-    @CPF(message = "CPF deve ser valido")
-    @NotBlank(message = "CPF é obrigatório")
     private String cpf;
 
     private LocalDateTime createAt;
 
     private LocalDateTime updateAt;
+
+	public Pessoa() {
+	}
+
+	public Pessoa(String nome, String sexo, String email, LocalDate dataNascimento, String naturalidade, String nacionalidade, String cpf) {
+		this.nome = nome;
+		this.sexo = sexo;
+		this.email = email;
+		this.dataNascimento = dataNascimento;
+		this.naturalidade = naturalidade;
+		this.nacionalidade = nacionalidade;
+		this.cpf = cpf;
+		this.createAt = LocalDateTime.now();
+	}
+
+	public Pessoa(String id, String nome, String sexo, String email, LocalDate dataNascimento, String naturalidade, String nacionalidade, String cpf, LocalDateTime createAt) {
+		this.id = id;
+		this.nome = nome;
+		this.sexo = sexo;
+		this.email = email;
+		this.dataNascimento = dataNascimento;
+		this.naturalidade = naturalidade;
+		this.nacionalidade = nacionalidade;
+		this.cpf = cpf;
+		this.createAt = createAt;
+		this.updateAt = LocalDateTime.now();
+	}
 
 	public String getId() {
 		return id;
@@ -120,6 +134,6 @@ public class Pessoa
 	}
 
 	public void setCpf(String cpf) {
-		this.cpf = cpf.replaceAll("[^0-9]", "");
+		this.cpf = cpf;
 	}
 }

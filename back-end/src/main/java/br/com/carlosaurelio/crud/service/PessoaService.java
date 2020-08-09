@@ -1,12 +1,13 @@
 package br.com.carlosaurelio.crud.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.carlosaurelio.crud.dto.PessoaToCreateDto;
+import br.com.carlosaurelio.crud.dto.PessoaToUpdateDto;
 import br.com.carlosaurelio.crud.entity.Pessoa;
 import br.com.carlosaurelio.crud.exception.CpfException;
 import br.com.carlosaurelio.crud.repository.PessoaRepository;
@@ -14,17 +15,23 @@ import br.com.carlosaurelio.crud.repository.PessoaRepository;
 @Service
 public class PessoaService {
 
+	private final PessoaRepository repository;
+
 	@Autowired
-	private PessoaRepository repository;
+	public PessoaService(PessoaRepository repository) {
+		this.repository = repository;
+	}
 
-	public Pessoa create(Pessoa newPessoa) throws CpfException {
-		Pessoa pessoa = repository.findByCpf(newPessoa.getCpf());
+	public Pessoa create(PessoaToCreateDto pessoaDto) throws CpfException {
+		Pessoa pessoa = pessoaDto.transformaParaObjeto();
 
-		if (pessoa != null) throw new CpfException("CPF já existente.");
+		if (pessoa == null) return null;
 
-		newPessoa.setCreateAt(LocalDateTime.now());
+		Pessoa pessoaExistente = repository.findByCpf(pessoa.getCpf());
 
-		return repository.save(newPessoa);
+		if (pessoaExistente != null) throw new CpfException("CPF já existente.");
+
+		return repository.save(pessoa);
 	}
 
 	public List<Pessoa> getAll() {
@@ -40,23 +47,25 @@ public class PessoaService {
 		return null;
 	}
 
-	public Pessoa update(String id, Pessoa newPessoa) {
-		Pessoa pessoa = this.findById(id);
+	public Pessoa update(String id, PessoaToUpdateDto dto) {
+		Pessoa pessoaExistente = this.findById(id);
+
+		if (pessoaExistente == null) return null;
+
+		Pessoa pessoa = dto.transformaParaObjeto(pessoaExistente.getCreateAt());
 
 		if (pessoa == null) return null;
-
-		pessoa.setNome(newPessoa.getNome());
-		pessoa.setSexo(newPessoa.getSexo());
-		pessoa.setEmail(newPessoa.getEmail());
-		pessoa.setDataNascimento(newPessoa.getDataNascimento());
-		pessoa.setNaturalidade(newPessoa.getNaturalidade());
-		pessoa.setNacionalidade(newPessoa.getNacionalidade());
-		pessoa.setUpdateAt(LocalDateTime.now());
 
 		return repository.save(pessoa);
 	}
 
-	public void delete(String id) {
-		repository.deleteById(id);
+	public Boolean delete(String id) {
+		Pessoa pessoaExistente = this.findById(id);
+
+		if (pessoaExistente == null) return false;
+
+		repository.delete(pessoaExistente);
+
+		return true;
 	}
 }
