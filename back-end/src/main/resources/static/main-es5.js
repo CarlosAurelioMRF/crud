@@ -515,37 +515,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /*! @angular/router */
     "./node_modules/@angular/router/__ivy_ngcc__/fesm2015/router.js");
 
-    var _c0 = ["sidenav"];
-
     var AppComponent = /*#__PURE__*/function () {
       function AppComponent(sourceService) {
         _classCallCheck(this, AppComponent);
 
         this.sourceService = sourceService;
-        this.opened = true;
       }
 
       _createClass(AppComponent, [{
         key: "ngOnInit",
-        value: function ngOnInit() {
-          this.opened = window.innerWidth >= 768;
-        }
-      }, {
-        key: "onResize",
-        value: function onResize(event) {
-          this.opened = window.innerWidth >= 768;
-        }
-      }, {
-        key: "isBiggerScreen",
-        value: function isBiggerScreen() {
-          var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-
-          if (width < 768) {
-            return true;
-          } else {
-            return false;
-          }
-        }
+        value: function ngOnInit() {}
       }, {
         key: "abrirGithub",
         value: function abrirGithub() {
@@ -566,27 +545,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     AppComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
       type: AppComponent,
       selectors: [["app-root"]],
-      viewQuery: function AppComponent_Query(rf, ctx) {
-        if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_c0, true);
-        }
-
-        if (rf & 2) {
-          var _t;
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.sidenav = _t.first);
-        }
-      },
-      hostBindings: function AppComponent_HostBindings(rf, ctx) {
-        if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("resize", function AppComponent_resize_HostBindingHandler($event) {
-            return ctx.onResize($event);
-          }, false, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵresolveWindow"]);
-        }
-      },
       decls: 17,
       vars: 3,
-      consts: [["color", "primary", 1, "header"], [1, "example-spacer"], ["mat-icon-button", "", 1, "code-icon", 3, "click"], [3, "mode", "opened", "openedChange"], ["sidenav", ""], ["mat-list-item", "", "routerLinkActive", "active", 3, "routerLink"]],
+      consts: [["color", "primary", 1, "header"], [1, "example-spacer"], ["mat-icon-button", "", 1, "code-icon", 3, "click"], [3, "mode", "opened"], ["sidenav", ""], ["mat-list-item", "", "routerLinkActive", "active", 3, "routerLink"]],
       template: function AppComponent_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-toolbar", 0);
@@ -619,10 +580,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "mat-sidenav", 3, 4);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("openedChange", function AppComponent_Template_mat_sidenav_openedChange_8_listener($event) {
-            return ctx.opened = $event;
-          });
-
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "mat-nav-list");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "a", 5);
@@ -653,7 +610,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         if (rf & 2) {
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](8);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("mode", ctx.isBiggerScreen() ? "over" : "side")("opened", ctx.opened);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("mode", "side")("opened", true);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
 
@@ -677,16 +634,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         return [{
           type: src_app_common_service_source_service__WEBPACK_IMPORTED_MODULE_1__["SourceService"]
         }];
-      }, {
-        sidenav: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
-          args: ['sidenav']
-        }],
-        onResize: [{
-          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"],
-          args: ['window:resize', ['$event']]
-        }]
-      });
+      }, null);
     })();
     /***/
 
