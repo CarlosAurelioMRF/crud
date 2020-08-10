@@ -8,7 +8,7 @@
 </mat-toolbar>
 
 <mat-sidenav-container>
-    <mat-sidenav #sidenav [mode]="isBiggerScreen() ? 'over' : 'side'" [(opened)]="opened">
+    <mat-sidenav #sidenav [mode]="'side'" [opened]="true">
         <mat-nav-list>
             <a mat-list-item routerLinkActive="active" [routerLink]="'/pessoas'">
                 <mat-icon>format_list_bulleted</mat-icon> Pessoas
